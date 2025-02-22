@@ -94,7 +94,7 @@ class Weather:
             logging.warning(f"Exception (get_coords_lon): {e}")
             pass
         try:
-            self.lon = self.data['coord']['lat']
+            self.lat = self.data['coord']['lat']
         except Exception as e:
             logging.warning(f"Exception (get_coords_lat): {e}")
             pass
@@ -158,7 +158,7 @@ class Weather:
     def get_visibility(self):
         # visibility
         try:
-            self.grnd_level = self.data['visibility']
+            self.visibility = self.data['visibility']
         except Exception as e:
             logging.warning(f"Exception (get_visibility): {e}")
             pass
@@ -196,12 +196,40 @@ class Weather:
 
     def show_short(self):
         try:
-            print("погода:", self.description)
-            print("температура:", int(self.temp))
-            print("ощущается как:", int(self.feels_like))
+            print("Погода:\t\t", self.description)
+            print("Температура:", int(self.temp))
             print("Ветер (м/с):", int(self.wind_speed))
-            print("Ветер (напр. в град.):", int(self.wind_deg))
             logging.info("Showing is successful")
         except Exception as e:
             logging.error(f"Exception (show_short): {e}")
+            pass
+
+    def show(self):
+        try:
+            print("Погода:\t\t\t\t\t", self.description)
+            print("Температура:\t\t\t", int(self.temp))
+            print("Ощущается как:\t\t\t", int(self.feels_like))
+            print("Ветер (м/с):\t\t\t", int(self.wind_speed))
+            print("Ветер (напр. в град.):\t", int(self.wind_deg))
+            logging.info("Showing is successful")
+        except Exception as e:
+            logging.error(f"Exception (show): {e}")
+            pass
+
+    def show_full(self):
+        try:
+            print(f"x: {self.lat}, y: {self.lon}")
+            print("Погода:\t\t\t\t\t", self.description)
+            print("Видимость (м):\t\t\t", self.visibility)
+            print("Температура (℃):\t\t", self.temp)
+            print("Ощущается как (℃):\t\t", self.feels_like)
+            print(f"Сегодня от {self.temp_min} до {self.temp_max} ℃")
+            print("Давление (мм. рт. ст.):\t", self.pressure * 0.7500615)
+            print("Влажность (%):\t\t\t", self.humidity)
+            print("Ветер (м/с):\t\t\t", self.wind_speed)
+            print("Ветер (°):\t\t\t\t", self.wind_deg)
+            print("Над уровнем моря (м):\t", self.sea_level)
+            logging.info("Showing is successful")
+        except Exception as e:
+            logging.error(f"Exception (show): {e}")
             pass
